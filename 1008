@@ -1,0 +1,59 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+       if(preorder.empty()){
+           return NULL;
+       }
+       TreeNode* Treeroot = new TreeNode(preorder[0]);
+       TreeNode* root = Treeroot;
+        int temp = 1;
+        for(int i=1;i<preorder.size();i++){
+            cout<<root->val<<"  ";
+            temp = 1;
+            cout<<"Initially  "<<temp<<endl;
+            while(root->right != NULL && root->val < preorder[i]){
+                root = root->right;
+                temp = 1;
+                cout<<"In 1st while"<<endl;
+            }
+            cout<<"After 1st while  "<<temp<<endl;
+            while(root->left !=NULL && root->val > preorder[i]){
+                root = root->left;
+                temp = 0;
+                cout<<"In 2nd while"<<endl;
+            }
+            cout<<"After 2nd while "<<temp<<endl;
+            if(temp == 0){
+                i = i -1;
+                continue;
+            }
+            if(root->left == NULL || root->right == NULL){
+                cout<<"In if"<<endl;
+                if(preorder[i] > root->val){
+                    root->right = new TreeNode(preorder[i]);
+                    root = root->right;
+                    cout<<"In I am Larger"<<endl;
+                }
+                else if(preorder[i] < root->val){
+                    root->left = new TreeNode(preorder[i]);
+                    root = root->left;
+                     cout<<"In I am smaller"<<endl;
+                }
+            }
+            cout<<root->val<<endl;
+            root = Treeroot;
+        }
+        return Treeroot;
+    }
+};
