@@ -1,0 +1,47 @@
+class Solution {
+    void reverse(string &a){
+        int start = 0;
+        int end = a.length() - 1;
+        while(start<end){
+            swap(a[start++], a[end--]);
+        }
+    }
+public:
+    string reverseWords(string s) {
+        bool prevspace = true;
+        string temp = "";
+        string word = "";
+        string space = " ";
+        int count = 0;
+        for(int i = 0;i<s.length()-1;i++){
+            if(s[i]==' '){
+                count++;
+            }
+            else{
+                break;
+            }
+        }
+        for(int i = s.length() - 1; i>=count ; i--){
+            if(s[i]==' '){
+                if(prevspace){
+                    continue;
+                }
+                reverse(word);
+                temp = temp + word;
+                word = "";
+                temp = temp + space;
+                prevspace = true;
+                continue;
+            }
+            else{
+            word = word + s[i];
+            prevspace = false;
+            }
+        }
+        if(word  != space){
+            reverse(word);
+            temp = temp+word;
+        }
+        return temp;
+    }
+};
