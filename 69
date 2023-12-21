@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        int i=1;
+        int j=x;
+        int ans = 0;
+        while(i<=j){
+            if(i!=0 &&  i <= INT_MAX/i){
+                    if(i*i == x){
+                    return i;
+                    }
+                    else if(i*i<x){
+                        ans = i;
+                    }
+                    else{
+                        break;
+                    }
+                    i++;
+            }
+            else{
+                break;
+            }
+        }
+            
+        return ans;
+    }
+};
