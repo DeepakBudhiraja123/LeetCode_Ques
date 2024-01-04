@@ -1,0 +1,73 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+    ListNode* getMid(ListNode* head){
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast!=NULL && fast->next != NULL){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+    ListNode* Merge(ListNode* left , ListNode* right){
+        if(left == NULL){
+            return right;
+        }
+        if(right == NULL){
+            return left;
+        }
+        ListNode* ans = new ListNode(-1);
+        ListNode* temp = ans;
+        while(left!=NULL && right!=NULL){
+            if(left->val < right->val){
+                temp->next = new ListNode(left->val);
+                temp = temp->next;
+                left = left->next;
+            }
+            else{
+                temp->next = new ListNode(right->val);
+                right = right->next;
+                temp = temp->next;
+            }
+        }
+        while(left!=NULL){
+            temp->next = new ListNode(left->val);
+            left = left->next;
+            temp = temp->next;
+        }
+        while(right!=NULL){
+            temp->next = new ListNode(right->val);
+            right = right->next;
+            temp = temp->next;
+        }
+        return ans->next;
+    }
+public:
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        ListNode* mid = getMid(head);
+        ListNode* left = head;
+        ListNode* right = mid->next;
+        mid->next = NULL;
+
+        left = sortList(left);
+        right = sortList(right);
+
+        ListNode* result = Merge(left, right);
+        return result;
+    }
+};
