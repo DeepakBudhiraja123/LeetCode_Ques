@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if(left == right){
+            return head;
+        }
+        int length = 0;
+        int lefty = left;
+        int righty = right;
+        ListNode* temp = head;
+        while(temp!=NULL){
+            length++;
+            temp=temp->next;
+        }
+        if(left==1 && right == length){
+            ListNode* prev = NULL;
+            ListNode* curr = head;
+            ListNode* nextptr = NULL;
+            while(curr!=NULL){
+                nextptr = curr->next;
+                curr->next = prev;
+                prev= curr;
+                curr = nextptr;
+            }
+             return prev;
+        }
+        ListNode* l = head;
+        ListNode* r = head;
+        ListNode* prevl;
+        ListNode* nextr;
+        lefty--;
+        righty--;
+        while(lefty){
+            prevl = l;
+            l = l->next;
+            lefty--;
+        }
+        while(righty){
+            r = r->next;
+            righty--;
+        }
+        nextr = r->next;
+
+        ListNode* prev = NULL;
+        ListNode* curr = l;
+        ListNode* nextptr;
+        while(curr!=nextr){
+            nextptr = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextptr;
+        }
+        if(left!=1){
+            prevl->next = prev;
+        }
+        if(right!=length){
+            l->next = nextr;
+        }
+        if(left == 1){
+            return prev;
+        }
+        if(righty == length){
+            return l;
+        }
+            return head;
+        }
+        
+};
