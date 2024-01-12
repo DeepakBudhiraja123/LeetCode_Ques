@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        int ans = 0;
+        map<char, int> Roman;
+        Roman['I'] = 1;
+        Roman['V'] = 5;
+        Roman['X'] = 10;
+        Roman['L'] = 50;
+        Roman['C'] = 100;
+        Roman['D'] = 500;
+        Roman['M'] = 1000;
+        int index = -1;
+        for(int i = 0; i<s.length()-1; i++){
+            int value = Roman[s[i]];
+            int next = Roman[s[i+1]];
+            if(next > value){
+                ans = ans + next - value;
+                i++;
+            }
+            else{
+                ans = ans + value;
+            }
+            index = i;
+        }
+        if(index == s.length()-2){
+            ans = ans + Roman[s[s.length()-1]];
+        }
+        return ans;
+    }
+};
