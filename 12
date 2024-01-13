@@ -1,0 +1,81 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        map<int, string> Less;
+        Less[4] = "IV";
+        Less[9] = "IX";
+        Less[40] = "XL";
+        Less[90] = "XC";
+        Less[400] = "CD";
+        Less[900] = "CM";
+        string ans = "";
+        while(num!=0){
+            if(num>=1000){
+                num = num - 1000;
+                ans.push_back('M');
+                continue;
+            }
+            if(num>=900){
+                num = num - 900;
+                ans = ans + "CM";
+                continue;
+            }
+            if(num>=500){
+                num = num - 500;
+                ans.push_back('D');
+                continue;
+            }
+            if(num>=400){
+                num = num - 400;
+                ans = ans + "CD";
+                continue;
+            }
+            if(num>=100){
+                num = num - 100;
+                ans.push_back('C');
+                continue;
+            }
+            if(num>=90){
+                num = num - 90;
+                ans = ans + "XC";
+                continue;
+            }
+            if(num>=50){
+                num = num - 50;
+                ans.push_back('L');
+                continue;
+            }
+            if(num>=40){
+                num = num - 40;
+                ans = ans + "XL";
+                continue;
+            }
+            if(num>=10){
+                num = num - 10;
+                ans.push_back('X');
+                continue;
+            }
+            if(num>=9){
+                num = num - 9;
+                ans = ans + "IX";
+                continue;
+            }
+            if(num>=5){
+                num = num - 5;
+                ans.push_back('V');
+                continue;
+            }
+            if(num>=4){
+                num = num - 4;
+                ans = ans + "IV";
+                continue;
+            }
+            if(num>=1){
+                num = num - 1;
+                ans = ans + "I";
+                continue;
+            }
+        }
+        return ans;
+    }
+};
