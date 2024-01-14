@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int ans = 0;
+        int start = 0;
+        int end = height.size()-1;
+        while(start<end){
+            int high1 = height[start];
+            int high2 = height[end];
+            int length = min(high1, high2);
+            int width = end - start;
+            ans = max(ans, length*width);
+            if(high1<high2){
+                start++;
+            }
+            else{
+                end--;
+            }
+        }
+        
+        return ans;
+    }
+};
