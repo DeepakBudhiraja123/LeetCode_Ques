@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+       vector<bool> count(1001,false);
+       sort(arr.begin(), arr.end());
+       int prev = 0;
+       int next = 0;
+       while(prev<arr.size()){
+           int element = arr[prev];
+           int next = prev;
+           int c = 0;
+           while(next<arr.size() && element == arr[next]){
+               c++;
+               next++;
+           }
+           prev = next;
+           if(count[c]){
+               return false;
+           }
+           count[c] = true;
+           cout<<"here"<<endl;
+       } 
+       return true;
+    }
+};
