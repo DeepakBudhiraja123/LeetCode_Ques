@@ -1,0 +1,40 @@
+
+class Solution {
+    bool isSafe(map<char,bool> visited, string a){
+        for(int i = 0; i<a.length(); i++){
+            if(visited[a[i]]){
+                return false;
+            }
+            visited[a[i]] = true;
+        }
+        return true;
+    }
+    void solve(int s, map<char,bool> &visited, vector<string> &arr, int &temp, int &size){
+        if(s >= arr.size()){
+            size = max(size, temp);
+            // cout<<size<<endl;
+            return;
+        }
+        if(isSafe(visited, arr[s])){
+            // cout<<arr[s]<<endl;
+            for(int j = 0;j<arr[s].length(); j++){
+                visited[arr[s][j]] = true;
+            }
+            temp += arr[s].size();
+            solve(s+1, visited, arr, temp, size);
+            temp -= arr[s].size();
+            for(int j = 0;j<arr[s].length(); j++){
+                visited[arr[s][j]] = false;
+            }
+        }
+        solve(s+1, visited, arr, temp, size);
+    }
+public:
+    int maxLength(vector<string>& arr) {
+        map<char,bool> visited;
+        int size = 0;
+        int temp = 0;
+        solve(0, visited, arr, temp, size);
+        return size;
+    }
+};
