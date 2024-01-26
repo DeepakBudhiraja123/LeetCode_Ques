@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        set<vector<int>> st;
+        vector<vector<int>> res;
+        if(nums.size()<=3){
+            return res;
+        }
+        long long sum = 0;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i<nums.size()-3; i++){
+            int n1 = nums[i];
+            vector<int> temp;
+            temp.push_back(n1);
+            sum += n1;
+            for(int j = i+1; j<nums.size()-2; j++){
+                int n2 = nums[j];
+                temp.push_back(n2);
+                int s = j+1;
+                int e = nums.size()-1;
+                sum += n2;
+                while(s<e){
+                    int n3 = nums[s];
+                    int n4 = nums[e];
+                    sum += n3 + n4;
+                    if(sum > INT_MAX){
+                        s++; e--;
+                        continue;
+                    }
+                    if(sum == target){
+                        temp.push_back(n3);
+                        temp.push_back(n4);
+                        st.insert(temp);
+                        temp.pop_back();
+                        temp.pop_back();
+                        s++; e--;
+                    }
+                    else if(sum > target){
+                        e--;
+                    }
+                    else{
+                        s++;
+                    }
+                    sum -= n3;
+                    sum -= n4;
+                }
+                sum -= n2;
+                temp.pop_back();
+            }
+            sum -= n1;
+        }
+        for(auto i: st){
+            res.push_back(i);
+        }
+        return res;
+    }
+};
