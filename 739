@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        stack<int> st;
+        st.push(-1);
+        vector<int> next(temperatures.size());
+        for(int i = temperatures.size()-1; i>=0; i--){
+            while(st.top()!=-1 && temperatures[st.top()] <= temperatures[i]){
+                st.pop();
+            }
+            next[i] = st.top();
+            st.push(i);
+        }
+        for(int i = 0; i<next.size(); i++){
+            if(next[i] == -1){
+                next[i]++;
+            }
+            else
+                next[i] = next[i] - i;
+        }
+        return next;
+    }
+};
