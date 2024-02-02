@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        int ans = 0;
+        int row = 0;
+        int col = 0;
+        int s = mat.size();
+        while(row<s){
+            if(col != abs(s-col-1))
+                ans = ans + mat[row][col] + mat[row][abs(s-col-1)];
+            else
+                ans = ans + mat[row][col];
+            row++;
+            col++;
+        }
+        return ans;
+    }
+};
