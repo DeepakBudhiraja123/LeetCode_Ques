@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long long largestPerimeter(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        long long int sum = 0;
+        for(int i = 0; i<nums.size(); i++){
+            sum = sum + nums[i];
+        }
+
+        int j = nums.size()-1;
+        while(j>=0){
+            sum = sum - nums[j];
+            if(sum > nums[j]){
+                sum = sum + nums[j];
+                break;
+            }
+            j--;
+        }
+        if(sum == 0){
+            return -1;
+        }
+        return sum;
+    }
+};
